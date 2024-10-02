@@ -75,5 +75,11 @@ spec:
           env:
           - name: SNAPSHOT
             value: $(params.SNAPSHOT)
+          - name: CONTROLLER_PASSWORD
+            value: $(params.cpt_controller.password)
+          - name: CONTROLLER_USER
+            value: $(params.cpt_controller.user)
+          - name: CONTROLLER_ADDRESS
+            value: $(params.cpt_controller.address)
           script: |    
-            sshpass -p ${cpt_controller.password} ssh ${cpt_controller.user}@${cpt_controller.address} 'pwd; ls -alh; uname -n; uname -v;'
+            sshpass -p ${CONTROLLER_PASSWORD} ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
