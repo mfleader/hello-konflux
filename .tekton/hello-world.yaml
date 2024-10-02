@@ -68,10 +68,10 @@ spec:
         steps:
         - name: controller-login
           image: registry.redhat.io/openshift4/ose-cli:latest
-          # volumeMounts:
-          #   - mountPath: /etc/secrets
-          #     name: cpt-controller
-          #     readOnly: true
+          volumeMounts:
+            - mountPath: /etc/secrets
+              name: crucible-controller-id
+              readOnly: true
           env:
             - name: SNAPSHOT
               value: $(params.SNAPSHOT)
@@ -108,3 +108,4 @@ spec:
             echo ${MY_FIRST_SECRET_address}
             # dnf -y install sshpass
             # sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
+            ssh -i /etc/secrets/konflux_crucible_id ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
