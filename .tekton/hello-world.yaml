@@ -56,12 +56,12 @@ spec:
           value: $(params.SNAPSHOT)
         - name: cpt_controller
           value: $(params.CPT_CONTROLLER_SECRET)
-      volumes:
-        - name: cpt-controller
-          secret:
-            optional: true
-            secretName: $(params.CPT_CONTROLLER_SECRET)       
       taskSpec:
+        volumes:
+          - name: cpt-controller
+            secret:
+              optional: true
+              secretName: $(params.CPT_CONTROLLER_SECRET)       
         params:
           - name: SNAPSHOT
           - name: cpt_controller
