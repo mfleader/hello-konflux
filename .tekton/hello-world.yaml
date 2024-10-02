@@ -20,11 +20,6 @@ spec:
       name: 'CPT_CONTROLLER_SECRET'
       type: string
       default: cpt-controller
-  volumes:
-    - name: cpt-controller
-      secret:
-        optional: true
-        secretName: $(params.CPT_CONTROLLER_SECRET)
   tasks:
     - name: hello-world
       description: Placeholder task that prints the Snapshot and outputs standard TEST_OUTPUT
@@ -60,7 +55,12 @@ spec:
         - name: SNAPSHOT
           value: $(params.SNAPSHOT)
         - name: cpt_controller
-          value: $(params.CPT_CONTROLLER)      
+          value: $(params.CPT_CONTROLLER_SECRET)
+      volumes:
+        - name: cpt-controller
+          secret:
+            optional: true
+            secretName: $(params.CPT_CONTROLLER_SECRET)       
       taskSpec:
         params:
           - name: SNAPSHOT
