@@ -76,4 +76,4 @@ spec:
           - name: SNAPSHOT
             value: $(params.SNAPSHOT)
           script: |    
-            sshpass -p ${cpt_controller.password} ssh ${cpt_controller.user}@${cpt_controller.address} 'ls -alh; uname -n; uname -v;'
+            sshpass -p ${cpt_controller.password} ssh ${cpt_controller.user}@${cpt_controller.address} 'pwd; ls -alh; uname -n; uname -v;'
