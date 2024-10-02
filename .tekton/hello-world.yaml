@@ -82,4 +82,5 @@ spec:
           - name: CONTROLLER_ADDRESS
             value: $(params.cpt_controller.address)
           script: |    
+            dnf -y install sshpass
             sshpass -p ${CONTROLLER_PASSWORD} ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
