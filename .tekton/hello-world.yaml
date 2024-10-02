@@ -73,32 +73,38 @@ spec:
           #     name: cpt-controller
           #     readOnly: true
           env:
-          - name: SNAPSHOT
-            value: $(params.SNAPSHOT)
-          - name: CONTROLLER_PASSWORD
-            # value: $(params.cpt_controller.password)
-            valueFrom:
-              secretKeyRef:
-                name: cpt-controller
-                key: password
-          - name: CONTROLLER_USER
-            # value: $(params.cpt_controller.user)
-            valueFrom:
-              secretKeyRef:
-                name: cpt-controller
-                key: user
-          - name: CONTROLLER_ADDRESS
-            # value: $(params.cpt_controller.address)
-            valueFrom:
-              secretKeyRef:
-                name: cpt-controller
-                key: address
-          - name: MY_FIRST_SECRET_robot
-            valueFrom:
-              secretKeyRef:
-                name: my-first-secret
-                key: robot
+            - name: SNAPSHOT
+              value: $(params.SNAPSHOT)
+            - name: CONTROLLER_PASSWORD
+              # value: $(params.cpt_controller.password)
+              valueFrom:
+                secretKeyRef:
+                  name: cpt-controller
+                  key: password
+            - name: CONTROLLER_USER
+              # value: $(params.cpt_controller.user)
+              valueFrom:
+                secretKeyRef:
+                  name: cpt-controller
+                  key: user
+            - name: CONTROLLER_ADDRESS
+              # value: $(params.cpt_controller.address)
+              valueFrom:
+                secretKeyRef:
+                  name: cpt-controller
+                  key: address
+            - name: MY_FIRST_SECRET_robot
+              valueFrom:
+                secretKeyRef:
+                  name: my-first-secret
+                  key: robot
+            - name: MY_FIRST_SECRET_address
+              valueFrom:
+                secretKeyRef:
+                  name: my-first-secret
+                  key: address                  
           script: |    
             echo ${MY_FIRST_SECRET_robot}
-            dnf -y install sshpass
-            sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
+            echo ${MY_FIRST_SECRET_address}
+            # dnf -y install sshpass
+            # sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
