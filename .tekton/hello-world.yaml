@@ -16,10 +16,10 @@ spec:
       name: EXPECTED_OUTPUT
       default: "Hello World!"
       type: string
-    - description: 'Crucible controller address'
-      name: 'CPT_CONTROLLER_SECRET'
-      type: string
-      default: cpt-controller
+    # - description: 'Crucible controller address'
+    #   name: 'CPT_CONTROLLER_SECRET'
+    #   type: string
+    #   default: cpt-controller
   tasks:
     - name: hello-world
       description: Placeholder task that prints the Snapshot and outputs standard TEST_OUTPUT
@@ -54,24 +54,24 @@ spec:
       params:
         - name: SNAPSHOT
           value: $(params.SNAPSHOT)
-        - name: cpt_controller
-          value: $(params.CPT_CONTROLLER_SECRET)
+        # - name: cpt_controller
+        #   value: $(params.CPT_CONTROLLER_SECRET)
       taskSpec:
-        volumes:
-          - name: cpt-controller
-            secret:
-              optional: true
-              secretName: $(params.cpt_controller)       
+        # volumes:
+        #   - name: cpt-controller
+        #     secret:
+        #       optional: true
+        #       secretName: $(params.cpt_controller)       
         params:
           - name: SNAPSHOT
-          - name: cpt_controller
+          # - name: cpt_controller
         steps:
         - name: controller-login
           image: registry.redhat.io/openshift4/ose-cli:latest
-          volumeMounts:
-            - mountPath: /etc/secrets
-              name: cpt-controller
-              readOnly: true
+          # volumeMounts:
+          #   - mountPath: /etc/secrets
+          #     name: cpt-controller
+          #     readOnly: true
           env:
           - name: SNAPSHOT
             value: $(params.SNAPSHOT)
@@ -100,5 +100,5 @@ spec:
                 key: robot
           script: |    
             echo ${MY_FIRST_SECRET_robot}
-            # dnf -y install sshpass
-            # sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
+            dnf -y install sshpass
+            sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
