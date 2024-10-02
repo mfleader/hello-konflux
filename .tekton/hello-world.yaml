@@ -16,8 +16,17 @@ spec:
       name: EXPECTED_OUTPUT
       default: "Hello World!"
       type: string
+    - description: 'Crucible controller address'
+      name: 'CPT_CONTROLLER_SECRET'
+      type: string
+      default: cpt-controller
+  volumes:
+    - name: cpt-controller
+      secret:
+        optional: true
+        secretName: $(params.CPT_CONTROLLER_SECRET)
   tasks:
-    - name: task-1
+    - name: hello-world
       description: Placeholder task that prints the Snapshot and outputs standard TEST_OUTPUT
       params:
         - name: SNAPSHOT
@@ -44,3 +53,27 @@ spec:
             TEST_OUTPUT=$(jq -rc --arg date $(date -u --iso-8601=seconds) --arg RESULT "${RESULT}" --null-input \
               '{result: $RESULT, timestamp: $date, failures: 0, successes: 1, warnings: 0}')
             echo -n "${TEST_OUTPUT}" | tee $(results.TEST_OUTPUT.path)
+
+    - name: hello-crucible
+      description: reach out to crucible controller
+      params:
+        - name: SNAPSHOT
+          value: $(params.SNAPSHOT)
+        - name: cpt_controller
+          value: $(params.CPT_CONTROLLER)      
+      taskSpec:
+        params:
+          - name: SNAPSHOT
+          - name: cpt_controller
+        steps:
+        - name: controller_login
+          image: registry.redhat.io/openshift4/ose-cli:latest
+          volumeMounts:
+            - mountPath: /etc/secrets
+              name: cpt-controller
+              readOnly: true
+          env:
+          - name: SNAPSHOT
+            value: $(params.SNAPSHOT)
+          script: |    
+            sshpass -p ${cpt_controller.password} ssh ${cpt_controller.user}@${cpt_controller.address} 'ls -alh; uname -n; uname -v;'
