@@ -57,7 +57,11 @@ spec:
         # - name: cpt_controller
         #   value: $(params.CPT_CONTROLLER_SECRET)
       taskSpec:
-        # volumes:
+        volumes:
+          - name: crucible-controller_id
+            secret:
+              optional: true
+              secretName: crucible-controller-id
         #   - name: cpt-controller
         #     secret:
         #       optional: true
@@ -70,7 +74,7 @@ spec:
           image: registry.redhat.io/openshift4/ose-cli:latest
           volumeMounts:
             - mountPath: /etc/secrets
-              name: crucible-controller-id
+              name: crucible-controller_id
               readOnly: true
           env:
             - name: SNAPSHOT
