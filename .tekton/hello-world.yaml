@@ -61,7 +61,7 @@ spec:
           - name: cpt-controller
             secret:
               optional: true
-              secretName: $(params.CPT_CONTROLLER_SECRET)       
+              secretName: $(params.cpt_controller)       
         params:
           - name: SNAPSHOT
           - name: cpt_controller
