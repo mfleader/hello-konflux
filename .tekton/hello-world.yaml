@@ -93,6 +93,12 @@ spec:
               secretKeyRef:
                 name: cpt-controller
                 key: address
+          - name: MY_FIRST_SECRET_robot
+            valueFrom:
+              secretKeyRef:
+                name: my-first-secret
+                key: robot
           script: |    
-            dnf -y install sshpass
-            sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
+            echo ${MY_FIRST_SECRET_robot}
+            # dnf -y install sshpass
+            # sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
