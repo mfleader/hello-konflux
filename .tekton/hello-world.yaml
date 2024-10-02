@@ -110,6 +110,6 @@ spec:
           script: |    
             echo ${MY_FIRST_SECRET_robot}
             echo ${MY_FIRST_SECRET_address}
-            dnf -y install sshpass
-            # sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
+            dnf -y install sshpass openssh
+            sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
             ssh -i /etc/secrets/konflux_crucible_id ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
