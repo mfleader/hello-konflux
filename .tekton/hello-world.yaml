@@ -71,7 +71,8 @@ spec:
           # - name: cpt_controller
         steps:
         - name: controller-login
-          image: registry.redhat.io/openshift4/ose-cli:latest
+          # image: registry.redhat.io/openshift4/ose-cli:latest
+          image: registry.redhat.io/rhel9/toolbox
           volumeMounts:
             - mountPath: /etc/secrets
               name: crucible-controller-id
