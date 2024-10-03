@@ -113,4 +113,4 @@ spec:
             echo ${MY_FIRST_SECRET_address}
             dnf -y install sshpass openssh
             # sshpass -p "${CONTROLLER_PASSWORD}" ssh ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
-            /usr/bin/ssh -i /etc/secrets/konflux_crucible_id ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
+            ssh -v -i /etc/secrets/konflux_crucible_id ${CONTROLLER_USER}@${CONTROLLER_ADDRESS} 'pwd; ls -alh; uname -n; uname -v;'
